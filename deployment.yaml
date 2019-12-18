@@ -1,0 +1,47 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: helloworld-nodejs
+spec:
+  strategy: #  should be zero unavailable pods while deploying (maxUnavailable: 0) and there should be one new pod at a time (maxSurge: 1).
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  replicas: 1
+  selector:
+    matchLabels:
+      app: helloworld-nodejs
+  template:
+    metadata:
+      labels:
+        app: helloworld-nodejs
+    spec:
+      containers:
+        - name: helloworld-nodejs-container
+          image: gcr.io/ad4screen-us/helloworld@sha256:d720e9c763fa275644a6165453df9ceecf74efff4cce60957eebdd7a701e5be7
+          ports:
+            - containerPort: 8080
+              name: http
+          readinessProbe: # Send an http get request to the path / every five seconds and if it is successful, mark the pod ready and start sending traffic to it.
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            successThreshold: 1
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: helloworld-nodejs-service
+spec:
+  selector:
+    app: helloworld-nodejs
+  ports:
+    - targetPort: 8080
+      port: 80
+      name: http
+  type: LoadBalancer
+  loadBalancerIP: 35.247.85.46
+
