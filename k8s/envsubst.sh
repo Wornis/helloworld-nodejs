@@ -1,2 +1,3 @@
 #!/bin/bash
-export TAG='tests' &&  envsubst '$TAG'  < k8s/deployment.yaml > deployment.yaml
+apt-get install -y gettext-base
+export TAG=$1 && envsubst '$TAG'  < k8s/deployment.yaml > deployment.yaml
