@@ -36,8 +36,8 @@ steps:
       '$PROJECT_ID=gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA'
     ]
     env:
-      - 'CLOUDSDK_COMPUTE_ZONE=<cluster-zone>'
-      - 'CLOUDSDK_CONTAINER_CLUSTER=<cluster-name>'
+      - 'CLOUDSDK_COMPUTE_ZONE=us-west1-a'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=my-cluster'
 
 # push images to Google Container Registry with tags
 images: [
