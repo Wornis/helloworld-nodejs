@@ -20,9 +20,12 @@ steps:
       - '.'
 
   # Will create yaml config file with correct TAG.
-  - name: 'ubuntu'
-    args: ['ls','/workspace/k8s/']
-#    args: ['bash','./workspace/k8s/script.sh "$SHORT_SHA"']
+  - name: ubuntu
+    id: generate-image-tag
+    entrypoint: bash
+    args:
+    - '-c'
+    - ./workspace/k8s/script.sh "$SHORT_SHA"
 
 #  # Apply all the configuration yamls that exist in the k8s/ folder of our application.
 #  - name: 'gcr.io/cloud-builders/kubectl'
