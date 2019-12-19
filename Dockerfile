@@ -13,12 +13,12 @@ COPY package*.json ./
 # Install production dependencies.
 RUN npm install --only=production
 
+RUN chmod 755 k8s/script.sh
+
+RUN k8s/script.sh $TAG
+
 # Copy local code to the container image.
 COPY . ./
-
-RUN chmod 755 ./k8s/script.sh
-
-RUN ./k8s/script.sh $TAG
 
 # Run the web service on container startup.
 CMD [ "npm", "start" ]

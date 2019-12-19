@@ -23,7 +23,7 @@ steps:
 
   # Apply all the configuration yamls that exist in the k8s/ folder of our application.
   - name: 'gcr.io/cloud-builders/kubectl'
-    args: ['apply', '-f', 'k8s/deployment_production.yaml']
+    args: ['apply', '-f', 'deployment_production.yaml']
     env:
       - 'CLOUDSDK_COMPUTE_ZONE=us-west1-a'
       - 'CLOUDSDK_CONTAINER_CLUSTER=my-cluster'
