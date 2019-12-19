@@ -5,18 +5,18 @@ steps:
     entrypoint: 'bash'
     args: [
       '-c',
-      'docker pull gcr.io/$PROJECT_ID/helloworld-nodejs:latest || exit 0'
+      'docker pull gcr.io/$PROJECT_ID/$REPO_NAME:latest || exit 0'
     ]
 
-  # This step builds the container image and replacing the latest.
+  # This step builds the container image and tag them.
   - name: 'gcr.io/cloud-builders/docker'
     id: Build
     args:
       - 'build'
       - '-t'
-      - 'gcr.io/$PROJECT_ID/helloworld-nodejs:$SHORT_SHA'
+      - 'gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA'
       - '-t'
-      - 'gcr.io/$PROJECT_ID/helloworld-nodejs:latest'
+      - 'gcr.io/$PROJECT_ID/$REPO_NAME:latest'
       - '.'
 
   # Apply all the configuration yamls that exist in the k8s/ folder of our application.
@@ -25,3 +25,9 @@ steps:
     env:
       - 'CLOUDSDK_COMPUTE_ZONE=us-west1-a'
       - 'CLOUDSDK_CONTAINER_CLUSTER=my-cluster'
+
+# push images to Google Container Registry with tags
+images: [
+  'gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA',
+  'gcr.io/$PROJECT_ID/$REPO_NAME:latest'
+]
