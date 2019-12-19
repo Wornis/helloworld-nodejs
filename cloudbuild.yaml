@@ -1,13 +1,4 @@
 steps:
-#  #Will pull the production image so that our build will be faster
-#  #as docker uses the cached layers of the old images to build new images.
-#  - name: 'gcr.io/cloud-builders/docker'
-#    entrypoint: 'bash'
-#    args: [
-#      '-c',
-#      'docker pull gcr.io/$PROJECT_ID/$REPO_NAME:latest || exit 0'
-#    ]
-
   # This step builds the container image and tag them.
   - name: 'gcr.io/cloud-builders/docker'
     id: Build
@@ -17,13 +8,15 @@ steps:
       - 'gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA'
       - '-t'
       - 'gcr.io/$PROJECT_ID/$REPO_NAME:latest'
-      - '--build-arg'
-      - 'TAG=$SHORT_SHA'
       - '.'
+
+  # Will create yaml config file with correct TAG.
+  - name: 'ubuntu'
+    args: ['sh', './workspace/script.sh']
 
   # Apply all the configuration yamls that exist in the k8s/ folder of our application.
   - name: 'gcr.io/cloud-builders/kubectl'
-    args: ['apply', '-f', 'k8s/deployment_production.yaml']
+    args: ['apply', '-f', 'deployment.yaml']
     env:
       - 'CLOUDSDK_COMPUTE_ZONE=us-west1-a'
       - 'CLOUDSDK_CONTAINER_CLUSTER=my-cluster'
