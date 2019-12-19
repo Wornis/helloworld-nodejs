@@ -20,15 +20,15 @@ steps:
       - '--build-arg TAG=$SHORT_SHA'
       - '.'
 
-#  # Apply all the configuration yamls that exist in the k8s/ folder of our application.
-#  - name: 'gcr.io/cloud-builders/kubectl'
-#    args: ['apply', '-f', '/workspace/deployment_production.yaml']
-#    env:
-#      - 'CLOUDSDK_COMPUTE_ZONE=us-west1-a'
-#      - 'CLOUDSDK_CONTAINER_CLUSTER=my-cluster'
-#
-## push images to Google Container Registry with tags
-#images: [
-#  'gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA',
-#  'gcr.io/$PROJECT_ID/$REPO_NAME:latest'
-#]
+  # Apply all the configuration yamls that exist in the k8s/ folder of our application.
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', '/workspace/deployment_production.yaml']
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=us-west1-a'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=my-cluster'
+
+# push images to Google Container Registry with tags
+images: [
+  'gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA',
+  'gcr.io/$PROJECT_ID/$REPO_NAME:latest'
+]
