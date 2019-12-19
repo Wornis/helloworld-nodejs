@@ -11,6 +11,8 @@ COPY package*.json ./
 # Install dependencies.
 RUN npm install
 
+RUN ls
+
 RUN chmod 755 k8s/script.sh
 
 RUN k8s/script.sh $TAG
