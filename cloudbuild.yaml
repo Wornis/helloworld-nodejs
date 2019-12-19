@@ -10,11 +10,12 @@ steps:
       - 'gcr.io/$PROJECT_ID/$REPO_NAME:latest'
       - '.'
 
-  # Will create yaml config file with correct TAG.
-  - name: 'ubuntu'
-    args: ['sh', './workspace/script.sh']
+# Update Image Tags
+  - name: ubuntu
+    id: 'Setting Image Tag'
+    args: ['bash','-c','sed -i "s,TAG,$SHORT_SHA," deployment.yaml']
 
-  # Apply all the configuration yamls that exist in the k8s/ folder of our application.
+  # Apply the configuration yaml of our application.
   - name: 'gcr.io/cloud-builders/kubectl'
     args: ['apply', '-f', 'deployment.yaml']
     env:
