@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: helloworld-nodejs-container
-          image: gcr.io/ad4screen-us/helloworld@sha256:d720e9c763fa275644a6165453df9ceecf74efff4cce60957eebdd7a701e5be7
+          image: gcr.io/ad4screen-us/helloworld-nodejs:latest
           ports:
             - containerPort: 8080
               name: http
