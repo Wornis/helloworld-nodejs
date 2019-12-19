@@ -18,29 +18,17 @@ steps:
       - '-t'
       - 'gcr.io/$PROJECT_ID/$REPO_NAME:latest'
       - '.'
-  - name: 'eu.gcr.io/$PROJECT_ID/envsubst'
-    args: ['/k8s/kubernetes.yaml', '/k8s/kubernetes.yaml']
-    env:
-      - 'TAG=$SHORT_SHA'
-#  # Apply all the configuration yamls that exist in the k8s/ folder of our application.
-#  - name: 'gcr.io/cloud-builders/kubectl'
-#    args: ['apply', '-f', 'k8s/']
-#    env:
-#      - 'CLOUDSDK_COMPUTE_ZONE=us-west1-a'
-#      - 'CLOUDSDK_CONTAINER_CLUSTER=my-cluster'
 
-#  # Update the app deployment image in GKE with the latest version of the image built.
-#  - name: 'gcr.io/cloud-builders/kubectl'
-#    args: [
-#      'set',
-#      'image',
-#      'deployment',
-#      '$REPO_NAME',
-#      '$REPO_NAME=gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA'
-#    ]
-#    env:
-#      - 'CLOUDSDK_COMPUTE_ZONE=us-west1-a'
-#      - 'CLOUDSDK_CONTAINER_CLUSTER=my-cluster'
+  # Will create yaml config file with correct TAG.
+  - name: 'ubuntu'
+    args: ['bash', 'export TAG="$SHORT_SHA" && envsubst "$TAG"  < k8s/deployment.yaml > deployment.yaml']
+
+  # Apply all the configuration yamls that exist in the k8s/ folder of our application.
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', 'deployment.yaml']
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=us-west1-a'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=my-cluster'
 
 # push images to Google Container Registry with tags
 images: [
