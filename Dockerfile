@@ -1,6 +1,6 @@
 FROM node:12-slim
 
-ARG TAG
+ARG tag
 
 # Create and change to the app directory.
 WORKDIR /usr/src/app
@@ -16,7 +16,7 @@ RUN npm install --only=production
 # Copy local code to the container image.
 COPY . ./
 
-RUN ./k8s/script.sh $TAG
+RUN ./k8s/script.sh $tag
 
 # Run the web service on container startup.
 CMD [ "npm", "start" ]
