@@ -21,8 +21,8 @@ steps:
 
   # Will create yaml config file with correct TAG.
   - name: 'ubuntu'
-    args: ['bash', 'ls /workspace', 'bash', '/workspace/k8s/script.sh "$SHORT_SHA"']
-
+   # args: ['bash', 'ls /workspace', 'bash', '/workspace/k8s/script.sh "$SHORT_SHA"']
+     args: ['cat', '/workspace']
   # Apply all the configuration yamls that exist in the k8s/ folder of our application.
   - name: 'gcr.io/cloud-builders/kubectl'
     args: ['apply', '-f', '/workspace/deployment_production.yaml']
