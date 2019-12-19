@@ -26,6 +26,19 @@ steps:
       - 'CLOUDSDK_COMPUTE_ZONE=us-west1-a'
       - 'CLOUDSDK_CONTAINER_CLUSTER=my-cluster'
 
+  # Update the app deployment image in GKE with the latest version of the image built.
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: [
+      'set',
+      'image',
+      'deployment',
+      '<app-name>',
+      '<app-name>=gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA'
+    ]
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=<cluster-zone>'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=<cluster-name>'
+
 # push images to Google Container Registry with tags
 images: [
   'gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA',
