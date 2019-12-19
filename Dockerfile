@@ -16,7 +16,7 @@ RUN npm install --only=production
 # Copy local code to the container image.
 COPY . ./
 
-RUN chmod 755 /k8s/script.sh
+RUN ls /
 
 # Run the web service on container startup.
 CMD [ "npm", "start" ]
