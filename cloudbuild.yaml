@@ -21,7 +21,7 @@ steps:
 
   # Will create yaml config file with correct TAG.
   - name: 'ubuntu'
-    args: ['ls', '/workspace/k8s/', './workspace/k8s/script.sh "$SHORT_SHA"']
+    args: ['./workspace/k8s/script.sh']
 #    args: ['bash','./workspace/k8s/script.sh "$SHORT_SHA"']
 
 #  # Apply all the configuration yamls that exist in the k8s/ folder of our application.
