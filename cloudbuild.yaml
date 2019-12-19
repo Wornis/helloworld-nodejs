@@ -32,8 +32,8 @@ steps:
       'set',
       'image',
       'deployment',
-      '<app-name>',
-      '<app-name>=gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA'
+      '$PROJECT_ID',
+      '$PROJECT_ID=gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA'
     ]
     env:
       - 'CLOUDSDK_COMPUTE_ZONE=<cluster-zone>'
