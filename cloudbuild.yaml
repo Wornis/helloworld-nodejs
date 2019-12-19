@@ -18,7 +18,7 @@ steps:
       - '-t'
       - 'gcr.io/$PROJECT_ID/$REPO_NAME:latest'
       - '.'
-  - name: 'gcr.io/$PROJECT_ID/envsubst'
+  - name: 'eu.gcr.io/$PROJECT_ID/envsubst'
     args: ['/k8s/kubernetes.yaml', '/k8s/kubernetes.yaml']
     env:
       - 'TAG=$SHORT_SHA'
