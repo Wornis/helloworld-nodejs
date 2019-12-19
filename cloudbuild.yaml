@@ -24,8 +24,10 @@ steps:
     id: generate-image-tag
     entrypoint: bash
     args:
-    - '-c'
-    - ./workspace/k8s/script.sh "$SHORT_SHA"
+#    - '-c'
+#    - ./workspace/k8s/script.sh "$SHORT_SHA"
+    - 'ls'
+    - ./workspace/k8s/"
 
 #  # Apply all the configuration yamls that exist in the k8s/ folder of our application.
 #  - name: 'gcr.io/cloud-builders/kubectl'
