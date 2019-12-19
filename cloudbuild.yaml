@@ -1,12 +1,12 @@
 steps:
-  #Will pull the production image so that our build will be faster
-  #as docker uses the cached layers of the old images to build new images.
-  - name: 'gcr.io/cloud-builders/docker'
-    entrypoint: 'bash'
-    args: [
-      '-c',
-      'docker pull gcr.io/$PROJECT_ID/$REPO_NAME:latest || exit 0'
-    ]
+#  #Will pull the production image so that our build will be faster
+#  #as docker uses the cached layers of the old images to build new images.
+#  - name: 'gcr.io/cloud-builders/docker'
+#    entrypoint: 'bash'
+#    args: [
+#      '-c',
+#      'docker pull gcr.io/$PROJECT_ID/$REPO_NAME:latest || exit 0'
+#    ]
 
   # This step builds the container image and tag them.
   - name: 'gcr.io/cloud-builders/docker'
