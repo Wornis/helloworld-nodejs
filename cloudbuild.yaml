@@ -32,8 +32,8 @@ steps:
       'set',
       'image',
       'deployment',
-      '$PROJECT_ID',
-      '$PROJECT_ID=gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA'
+      '$REPO_NAME',
+      '$REPO_NAME=gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA'
     ]
     env:
       - 'CLOUDSDK_COMPUTE_ZONE=us-west1-a'
