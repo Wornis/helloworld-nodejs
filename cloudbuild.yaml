@@ -17,7 +17,8 @@ steps:
       - 'gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA'
       - '-t'
       - 'gcr.io/$PROJECT_ID/$REPO_NAME:latest'
-      - '"--build-arg tag=$SHORT_SHA"'
+      - '--build-arg'
+      - 'tag=$SHORT_SHA'
       - '.'
 
   # Apply all the configuration yamls that exist in the k8s/ folder of our application.
