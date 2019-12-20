@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: ^REPO_NAME
+  name: __REPO_NAME
 spec:
   strategy:
     type: RollingUpdate
@@ -11,15 +11,15 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ^REPO_NAME
+      app: __REPO_NAME
   template:
     metadata:
       labels:
-        app: ^REPO_NAME
+        app: __REPO_NAME
     spec:
       containers:
-        - name: ^REPO_NAME
-          image: gcr.io/ad4screen-us/helloworld-nodejs:^IMAGE_TAG
+        - name: __REPO_NAME
+          image: gcr.io/ad4screen-us/helloworld-nodejs:__IMAGE_TAG
           ports:
             - containerPort: 8080
               name: http
@@ -34,10 +34,10 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: ^REPO_NAME-service
+  name: __REPO_NAME-service
 spec:
   selector:
-    app: ^REPO_NAME
+    app: __REPO_NAME
   ports:
     - targetPort: 8080
       port: 80

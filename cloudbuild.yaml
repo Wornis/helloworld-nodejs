@@ -23,8 +23,9 @@ steps:
   - name: ubuntu
     id: 'Setting Image Tag'
     args: [
-      'bash','-c','sed -i "s,''\$IMAGE_TAG,$SHORT_SHA''," deployment.yaml',
-      'bash','-c','sed -i "s,''\$REPO_NAME,$REPO_NAME''," deployment.yaml'
+      'bash','-c','sed -i "s,''__IMAGE_TAG,$SHORT_SHA''," deployment.yaml',
+      '&&',
+      'bash','-c','sed -i "s,''__REPO_NAME,$REPO_NAME''," deployment.yaml'
     ]
 
   # Apply the configuration yaml of our application.
