@@ -30,6 +30,7 @@ steps:
 
   # Apply the configuration yaml of our application.
   - name: 'gcr.io/cloud-builders/kubectl'
+    id: 'Apply configuration to Kubernetes'
     args: ['apply', '-f', 'deployment.yaml']
     env:
       - 'CLOUDSDK_COMPUTE_ZONE=us-west1-a'
