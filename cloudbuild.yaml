@@ -1,4 +1,11 @@
 steps:
+  #Will pull the production image for using his layers
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args: [
+      '-c',
+      'docker pull gcr.io/$PROJECT_ID/$REPO_NAME:latest || exit 0'
+    ]
   # This step builds the container image and tag them.
   - name: 'gcr.io/cloud-builders/docker'
     id: Build
