@@ -27,7 +27,7 @@ steps:
       '-c',
       'sed -i -e "s,__IMAGE_TAG,$SHORT_SHA,',
       '-e',
-      's,__REPO_NAME,REPO_NAME," deployment.yaml'
+      's,__REPO_NAME,$REPO_NAME," deployment.yaml'
     ]
 
 
