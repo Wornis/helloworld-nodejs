@@ -23,13 +23,12 @@ spec:
           ports:
             - containerPort: 8080
               name: http
-          readinessProbe: # Send an http get request to the path / every five seconds and if it is successful, mark the pod ready and start sending traffic to it.
+          readinessProbe:
             httpGet:
               path: /
               port: 8080
             initialDelaySeconds: 5
             periodSeconds: 5
-            successThreshold: 1
 ---
 kind: Service
 apiVersion: v1
