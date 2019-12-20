@@ -23,11 +23,7 @@ steps:
   - name: ubuntu
     id: 'Settings Tag And Repo Name on Deployment File'
     args: [
-      'bash',
-      '-c',
-      'sed -i -e "s,__IMAGE_TAG,$SHORT_SHA,',
-      '-e',
-      's,__REPO_NAME,$REPO_NAME," deployment.yaml'
+      'bash -c "sed -i -e "s,__IMAGE_TAG,4442e0c," -e "s,__REPO_NAME,helloworld-nodejs," deployment.yaml"'
     ]
 
 
