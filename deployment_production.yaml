@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: helloworld-nodejs
+  name: dream
 spec:
   strategy:
     type: RollingUpdate
@@ -11,15 +11,15 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: helloworld-nodejs
+      app: dream
   template:
     metadata:
       labels:
-        app: helloworld-nodejs
+        app: dream
     spec:
       containers:
-        - name: helloworld-nodejs
-          image: gcr.io/ad4screen-us/helloworld-nodejs:67c23b3
+        - name: dream
+          image: gcr.io/ad4screen-us/dream:7a57a2a
           ports:
             - containerPort: 8080
               name: http
@@ -34,10 +34,10 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: helloworld-nodejs-service
+  name: dream-service
 spec:
   selector:
-    app: helloworld-nodejs
+    app: dream
   ports:
     - targetPort: 8080
       port: 80
