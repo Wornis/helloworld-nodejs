@@ -43,4 +43,21 @@ spec:
       name: http
   type: LoadBalancer
   loadBalancerIP: 35.247.85.46
+---
+kind: HorizontalPodAutoscaler
+apiVersion: autoscaling/v2beta1
+metadata:
+  name: __REPO_NAME-hpa
+spec:
+  maxReplicas: 10
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: app/v1
+    kind: Deployment
+    name: __REPO_NAME-hpa
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        targetAverageUtilization: 60
 
