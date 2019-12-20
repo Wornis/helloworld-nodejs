@@ -1,0 +1,47 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: $REPO_NAME
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0 # Should be zero unavailable pods while deploying.
+      maxSurge: 1 # Should be one new pod at a time.
+  replicas: 1
+  selector:
+    matchLabels:
+      app: $REPO_NAME
+  template:
+    metadata:
+      labels:
+        app: $REPO_NAME
+    spec:
+      containers:
+        - name: $REPO_NAME
+          image: gcr.io/ad4screen-us/$REPO_NAME:8b2b0d8
+          ports:
+            - containerPort: 8080
+              name: http
+          readinessProbe: #
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            successThreshold: 5
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: $REPO_NAME-LoadBalancer
+spec:
+  selector:
+    app: $REPO_NAME
+  ports:
+    - targetPort: 8080
+      port: 80
+      name: http
+  type: LoadBalancer
+  loadBalancerIP: 35.247.85.46
+
