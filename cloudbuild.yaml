@@ -25,7 +25,7 @@ steps:
     args: [
       'bash','-c','sed -i "s,__IMAGE_TAG,$SHORT_SHA," deployment.yaml',
       '&&',
-      'bash','-c','sed -i "s,__REPO_NAME,$SHORT_SHA," deployment.yaml'
+      'bash','-c','sed -i "s,__REPO_NAME,$REPO_NAME," deployment.yaml'
     ]
 
   # Apply the configuration yaml of our application.
