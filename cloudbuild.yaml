@@ -24,8 +24,8 @@ steps:
     id: 'Settings Tag And Repo Name on Deployment File'
     args: [
       'bash', '-c',
-      '"sed -e "s,__IMAGE_TAG,$SHORT_SHA,"',
-      '-e "s,__REPO_NAME,$REPO_NAME,"',
+      'sed -e "s,__IMAGE_TAG,$SHORT_SHA,',
+      '-e "s,__REPO_NAME,$REPO_NAME,',
       'deployment.yaml" > /workspace/deployment_production.yaml'
     ]
 
