@@ -23,16 +23,15 @@ steps:
   - name: ubuntu
     id: 'Settings Tag And Repo Name on Deployment File'
     args: [
-      'bash', '-c',
-      'sed -e "s,__IMAGE_TAG,$SHORT_SHA,',
-      '-e "s,__REPO_NAME,$REPO_NAME,',
-      'deployment.yaml" > /workspace/deployment_production.yaml'
+      'bash','-c','sed -i "s,__IMAGE_TAG,$SHORT_SHA," deployment.yaml',
+      '&&',
+      'bash','-c','sed -i "s,__REPO_NAME,$SHORT_SHA," deployment.yaml'
     ]
 
   # Apply the configuration yaml of our application.
   - name: 'gcr.io/cloud-builders/kubectl'
     id: 'Apply configuration to Kubernetes'
-    args: ['apply', '-f', '/workspace/deployment_production.yaml']
+    args: ['apply', '-f', 'deployment.yaml']
     env:
       - 'CLOUDSDK_COMPUTE_ZONE=us-west1-a'
       - 'CLOUDSDK_CONTAINER_CLUSTER=my-cluster'
