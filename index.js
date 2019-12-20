@@ -2,8 +2,6 @@ const express = require('express');
 const app = express();
 
 app.get('/', (req, res) => {
-  console.log('Hello KEvin.');
-
   const target = process.env.TARGET || 'World';
   res.send(`Salut BRother ${target}!`);
 });
