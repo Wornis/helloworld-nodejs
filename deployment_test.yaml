@@ -1,0 +1,47 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: __REPO_NAME
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0 # Should be zero unavailable pods while deploying.
+      maxSurge: 1 # Should be one new pod at a time.
+  replicas: 1
+  selector:
+    matchLabels:
+      app: __REPO_NAME
+  template:
+    metadata:
+      labels:
+        app: __REPO_NAME
+    spec:
+      containers:
+        - name: __REPO_NAME
+          image: gcr.io/ad4screen-us/helloworld-nodejs:cea23d9
+          ports:
+            - containerPort: 8080
+              name: http
+          readinessProbe: # Send an http get request to the path / every five seconds and if it is successful, mark the pod ready and start sending traffic to it.
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            successThreshold: 5
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: __REPO_NAME-service
+spec:
+  selector:
+    app: __REPO_NAME
+  ports:
+    - targetPort: 8080
+      port: 80
+      name: http
+  type: LoadBalancer
+  loadBalancerIP: 35.247.85.46
+
