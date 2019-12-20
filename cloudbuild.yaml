@@ -1,11 +1,13 @@
 steps:
-  #Will pull the production image for using his layers
+  #Will pull the production image for using his layers for a faster build
   - name: 'gcr.io/cloud-builders/docker'
+    id: 'Pull latest image'
     entrypoint: 'bash'
     args: [
       '-c',
       'docker pull gcr.io/$PROJECT_ID/$REPO_NAME:latest || exit 0'
     ]
+
   # This step builds the container image and tag them.
   - name: 'gcr.io/cloud-builders/docker'
     id: Build
@@ -17,10 +19,13 @@ steps:
       - 'gcr.io/$PROJECT_ID/$REPO_NAME:latest'
       - '.'
 
-# Update Image Tags
+# Update Image Tag
   - name: ubuntu
     id: 'Setting Image Tag'
-    args: ['bash','-c','sed -i "s,IMAGE_TAG,$SHORT_SHA," deployment.yaml']
+    args: [
+      'bash','-c','sed -i "s,^IMAGE_TAG,$SHORT_SHA," deployment.yaml',
+      'bash','-c','sed -i "s,^REPO_NAME,$REPO_NAME," deployment.yaml'
+    ]
 
   # Apply the configuration yaml of our application.
   - name: 'gcr.io/cloud-builders/kubectl'
