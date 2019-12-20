@@ -1,12 +1,12 @@
 steps:
-#  #Will pull the production image for using his layers for a faster build
-#  - name: 'gcr.io/cloud-builders/docker'
-#    id: 'Pull latest image'
-#    entrypoint: 'bash'
-#    args: [
-#      '-c',
-#      'docker pull gcr.io/$PROJECT_ID/$REPO_NAME:latest || exit 0'
-#    ]
+  #  #Will pull the production image for using his layers for a faster build
+  #  - name: 'gcr.io/cloud-builders/docker'
+  #    id: 'Pull latest image'
+  #    entrypoint: 'bash'
+  #    args: [
+  #      '-c',
+  #      'docker pull gcr.io/$PROJECT_ID/$REPO_NAME:latest || exit 0'
+  #    ]
 
   # This step builds the container image and tag them.
   - name: 'gcr.io/cloud-builders/docker'
@@ -19,11 +19,13 @@ steps:
       - 'gcr.io/$PROJECT_ID/$REPO_NAME:latest'
       - '.'
 
-# Update Image Tag
+  # Update Image Tag
   - name: ubuntu
     id: 'Settings Tag And Repo Name on Deployment File'
     args: [
-      'bash -c "sed -i -e "s,__IMAGE_TAG,4442e0c," -e "s,__REPO_NAME,helloworld-nodejs," deployment.yaml'
+      'bash',
+      '-c',
+      'sed -i -e "s,__IMAGE_TAG,4442e0c," -e "s,__REPO_NAME,helloworld-nodejs," deployment.yaml'
     ]
 
 
