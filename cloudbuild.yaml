@@ -25,8 +25,8 @@ steps:
     args: [
       'bash',
       '-c',
-      'sed -i -e "s,__IMAGE_TAG,$SHORT_SHA,',
-      '-e "s,__IMAGE_TAG,$SHORT_SHA," deployment.yaml'
+      'sed -i -e "s,__IMAGE_TAG,$SHORT_SHA, -e',
+      's,__IMAGE_TAG,$SHORT_SHA," deployment.yaml'
     ]
 
 
