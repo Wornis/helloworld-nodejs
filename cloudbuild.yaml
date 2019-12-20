@@ -13,7 +13,7 @@ steps:
 # Update Image Tags
   - name: ubuntu
     id: 'Setting Image Tag'
-    args: ['bash','-c','sed -i "s,$TAG,$SHORT_SHA,"deployment.yaml']
+    args: ['bash','-c','sed -i "s,TAG_IMAGE,$SHORT_SHA,"deployment.yaml']
 
   # Apply the configuration yaml of our application.
   - name: 'gcr.io/cloud-builders/kubectl'
