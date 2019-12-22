@@ -53,9 +53,11 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: "nginx"
     ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
   namespace: default
 spec:
+  tls:
+  - hosts:
+    - hello.testbia.tk
   rules:
   - host: hello.testbia.tk
   - http:
