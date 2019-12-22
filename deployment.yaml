@@ -57,10 +57,9 @@ metadata:
 spec:
   rules:
   - host: hello.testbia.tk
-  - http:
+    http:
       paths:
-      - path: /*
-        backend:
+      - backend:
           serviceName: __REPO_NAME-service
           servicePort: 80
 ---
