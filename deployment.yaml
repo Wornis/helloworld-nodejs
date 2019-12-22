@@ -51,6 +51,7 @@ kind: Ingress
 metadata:
   name: __REPO_NAME-ingress
   annotations:
+    kubernetes.io/ingress.class: "nginx"
     kubernetes.io/ingress.global-static-ip-name: "test-node"
 spec:
   rules:
